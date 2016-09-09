@@ -27,7 +27,7 @@ class RespondersCreateTest < ActionDispatch::IntegrationTest
       body
     )
   end
-
+ 
   test 'POST /responders/ capacity can be a number between 1..5' do
     post '/responders', responder: { type: 'Fire', name: 'F-200', capacity: 0 }
     assert_equal 422, response.status
@@ -91,6 +91,7 @@ class RespondersCreateTest < ActionDispatch::IntegrationTest
   end
 
   test 'POST /responders/ lack of name returns an error' do
+
     post '/responders', responder: { type: 'Fire', capacity: 1 }
 
     assert_equal 422, response.status
@@ -126,3 +127,4 @@ class RespondersCreateTest < ActionDispatch::IntegrationTest
     )
   end
 end
+

@@ -1,0 +1,3 @@
+class Fire < Responder 
+	
+end

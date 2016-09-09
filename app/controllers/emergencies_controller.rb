@@ -6,16 +6,10 @@ class EmergenciesController < ApplicationController
   end
 
   def create
-    emergency = Emergency.create(emergency_params)
+    emergency = Emergency.create(params[:emergency])
     respond_with emergency
   end
 
   def update
-  end
-
-protect
-
-  def emergency_params
-    params.require(:emergency).permit(:code, :fire_severity, :police_severity, :medical_severity)
   end
 end
