@@ -6,7 +6,6 @@ class EmergenciesCreateTest < ActionDispatch::IntegrationTest
     json_response = JSON.parse(response.body)
 
     assert_equal 201, response.status
-    assert_equal nil, body['message']
     assert_equal 'E-99999999', json_response['emergency']['code']
     assert_equal 1, json_response['emergency']['fire_severity']
     assert_equal 2, json_response['emergency']['police_severity']
@@ -14,7 +13,6 @@ class EmergenciesCreateTest < ActionDispatch::IntegrationTest
   end
 
   test 'POST /emergencies/ all severities must be greater than or equal to zero' do
-    skip
     post '/emergencies', emergency: { code: 'E-55555555', fire_severity: -1, police_severity: -1, medical_severity: -1 }
     assert_equal 422, response.status
     assert_equal(
@@ -30,7 +28,6 @@ class EmergenciesCreateTest < ActionDispatch::IntegrationTest
   end
 
   test 'POST /emergencies/ code attribute must be unique' do
-    skip
     post '/emergencies', emergency: { code: 'E-not-unique', fire_severity: 1, police_severity: 3, medical_severity: 5 }
     json_response = JSON.parse(body)
 
@@ -48,7 +45,6 @@ class EmergenciesCreateTest < ActionDispatch::IntegrationTest
   end
 
   test 'POST /emergencies/ cannot set id' do
-    skip
     post '/emergencies', emergency: { id: 1, fire_severity: 1, police_severity: 2, medical_severity: 3 }
 
     assert_equal 422, response.status
@@ -56,7 +52,6 @@ class EmergenciesCreateTest < ActionDispatch::IntegrationTest
   end
 
   test 'POST /emergencies/ cannot set resolved_at' do
-    skip
     post '/emergencies',
          emergency: {
            resolved_at: Time.zone.now,
@@ -71,7 +66,6 @@ class EmergenciesCreateTest < ActionDispatch::IntegrationTest
   end
 
   test 'POST /emergencies/ lack of fire_severity returns an error' do
-    skip
     post '/emergencies', emergency: { code: 'E-55555555', police_severity: 2, medical_severity: 3 }
 
     assert_equal 422, response.status
@@ -79,7 +73,6 @@ class EmergenciesCreateTest < ActionDispatch::IntegrationTest
   end
 
   test 'POST /emergencies/ lack of police_severity returns an error' do
-    skip
     post '/emergencies', emergency: { code: 'E-55555555', fire_severity: 2, medical_severity: 3 }
 
     assert_equal 422, response.status
@@ -87,7 +80,6 @@ class EmergenciesCreateTest < ActionDispatch::IntegrationTest
   end
 
   test 'POST /emergencies/ lack of medical_severity returns an error' do
-    skip
     post '/emergencies', emergency: { code: 'E-55555555', fire_severity: 2, police_severity: 3 }
 
     assert_equal 422, response.status
@@ -95,7 +87,6 @@ class EmergenciesCreateTest < ActionDispatch::IntegrationTest
   end
 
   test 'POST /emergencies/ lack of multiple required fields returns an error' do
-    skip
     post '/emergencies', emergency: { fire_severity: 1 }
 
     assert_equal 422, response.status

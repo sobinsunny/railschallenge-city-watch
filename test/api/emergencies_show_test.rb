@@ -2,12 +2,11 @@ require 'test_helper'
 
 class EmergenciesShowTest < ActionDispatch::IntegrationTest
   def setup
-    super
-
     post '/emergencies/', emergency: { code: 'E-00000001', fire_severity: 1, police_severity: 2, medical_severity: 3 }
   end
 
   test 'GET /emergencies/:code simple get by code' do
+    setup
     get '/emergencies/E-00000001'
     json_response = JSON.parse(body)
 

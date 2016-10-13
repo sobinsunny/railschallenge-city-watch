@@ -1,3 +1,3 @@
-class Fire < Responder 
-	
+class Fire < Responder
+  include CreateResponder
 end
